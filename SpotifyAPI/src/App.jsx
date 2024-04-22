@@ -2,7 +2,6 @@ import { useState } from "react"
 import './index.css'
 
 function App() {
-  
   const [cancion, setCancion] = useState('')
   const [canciones, setCanciones] = useState([])
 
@@ -31,9 +30,7 @@ function App() {
       let response = await data.json()
       console.log(response.tracks.items)
       setCanciones(response.tracks.items)
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.log(`Ha ocurrido un error, ${error}`)
     }
 
@@ -41,10 +38,7 @@ function App() {
 
   return (
     <>
-
-    <div className="blur"></div> 
-      <h1 className="title">Spotify Search</h1>
-      
+      <h1 className="title">Buscar en Spotify</h1>
       <form onSubmit={handleSearch}>
         <input type="text" placeholder="Buscar una cancion..." value={cancion} onChange={ e => setCancion(e.target.value)}/>
         <button type="submit">Buscar</button>
@@ -59,7 +53,7 @@ function App() {
               <img src={cancion.data.albumOfTrack.coverArt.sources[0].url} alt={cancion.data.albumOfTrack.coverArt.name} />
               <h1 className="songName"> {cancion.data.name} </h1>
             </a>
-            <h2 className="artistName">{cancion.data.artists.items[0].profile.name}</h2>
+            <a className="artistProfile" href={cancion.data.artists.items[0].uri}><h2>{cancion.data.artists.items[0].profile.name}</h2></a>
           </div> 
         )
       })}
